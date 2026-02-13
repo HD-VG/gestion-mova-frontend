@@ -1,0 +1,102 @@
+// 1. Variables locales para fácil mantenimiento
+$animation-speed: 0.5s;
+$card-radius: 24px;
+
+.profile-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  
+  // Animación de entrada suave
+  animation: fadeIn $animation-speed ease-out;
+}
+
+.profile-card {
+  border-radius: $card-radius;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+// 2. Personalización de Componentes de PrimeNG
+// Usamos :host ::ng-deep para llegar a los estilos internos de PrimeNG
+:host ::ng-deep {
+  
+  // Estilo para Inputs (Normal y Deshabilitado)
+  .p-inputtext {
+    border-radius: 12px; // Redondeado moderno
+    transition: all 0.2s;
+
+    &:enabled:focus {
+      box-shadow: 0 0 0 2px var(--primary-color-light);
+    }
+
+    &:disabled {
+      // Esto asegura que en modo oscuro y claro se vea bien
+      background-color: var(--surface-100) !important;
+      color: var(--text-color-secondary) !important;
+      border-color: var(--surface-200) !important;
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  // Estilo para los Botones de PrimeNG
+  .p-button {
+    border-radius: 12px;
+    font-weight: 600;
+    
+    &.p-button-text {
+      &:hover {
+        background: rgba(var(--primary-color-rgb), 0.04);
+      }
+    }
+  }
+}
+
+// 3. Helpers de Layout (Para que .actions funcione)
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+// 4. Animaciones
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+// 5. Ajustes Responsivos (Mobile First)
+@media (max-width: 768px) {
+  .profile-container {
+    margin: 1rem auto;
+  }
+
+  .actions {
+    flex-direction: column;
+    
+    // Hacemos que los botones ocupen todo el ancho en móvil
+    p-button, .p-button {
+      width: 100%;
+    }
+    
+    // Quitamos el espaciador en móvil
+    .flex-grow {
+      display: none;
+    }
+  }
+
+  .grid {
+    gap: 1rem !important;
+  }
+}

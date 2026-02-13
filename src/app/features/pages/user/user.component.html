@@ -1,0 +1,211 @@
+<div class="user-profile">
+  <div class="card">
+    <!-- <h1>Mi Perfil</h1> -->
+
+    <!-- Debug temporal - quítalo después si quieres -->
+    <!-- <div style="background: #fff3cd; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;">
+      <strong>Debug:</strong><br>
+      Cargando: {{ loading }}<br>
+      Usuario existe: {{ user ? 'SÍ' : 'NO' }}<br>
+    </div> -->
+
+    <div *ngIf="loading" class="loading">Cargando perfil...</div>
+
+    <div class="profile-container animate-fadein">
+  <div class="profile-card bg-surface-0 dark:bg-surface-900 shadow-xl rounded-3xl overflow-hidden border border-surface-200 dark:border-surface-800">
+    
+    <div class="profile-header bg-primary/10 p-8 flex flex-col items-center gap-4 border-b border-surface-200 dark:border-surface-800">
+      <div class="relative">
+        <div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+          {{ user?.fullName?.charAt(0) }}
+        </div>
+        <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-4 border-white dark:border-surface-900 rounded-full"></div>
+      </div>
+      <div class="text-center">
+        <h2 class="text-2xl font-bold text-surface-900 dark:text-surface-0">{{ form.fullName }}</h2>
+        <p class="text-primary font-medium">{{ user?.role }}</p>
+      </div>
+    </div>
+
+    <div class="p-6 md:p-10">
+      <div *ngIf="loading" class="flex flex-col items-center py-10 gap-4">
+        <i class="pi pi-spin pi-spinner text-4xl text-primary"></i>
+        <p class="text-surface-500">Actualizando información...</p>
+      </div>
+
+      <div *ngIf="!loading && user" class="space-y-8">
+        
+        <section>
+          <div class="flex items-center gap-2 mb-6 border-b border-surface-100 dark:border-surface-800 pb-2">
+            <i class="pi pi-user text-primary"></i>
+            <h3 class="text-lg font-semibold text-surface-700 dark:text-surface-200">Información Personal</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70"[style.color]="'white !important'">Nombre completo</label>
+              <input pInputText [(ngModel)]="form.fullName" [disabled]="!isEditing" class="w-full h-12 rounded-xl" [style.color]="'white !important'"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Correo electrónico</label>
+              <input pInputText [(ngModel)]="form.email" [disabled]="true" class="w-full h-12 rounded-xl opacity-60" [style.color]="'white !important'"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Documento</label>
+              <input pInputText [(ngModel)]="form.document" [disabled]="!isEditing" class="w-full h-12 rounded-xl" placeholder="Nro de documento" [style.color]="'white !important'"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Teléfono</label>
+              <input pInputText [(ngModel)]="form.phone" [disabled]="!isEditing" class="w-full h-12 rounded-xl" placeholder="Ej: +54 9..." [style.color]="'white !important'"/>
+            </div>
+            <div class="flex flex-col gap-2 md:col-span-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Dirección</label>
+              <input pInputText [(ngModel)]="form.address" [disabled]="!isEditing" class="w-full h-12 rounded-xl" placeholder="Calle, Ciudad, Provincia" [style.color]="'white !important'"/>
+            </div>
+          </div>
+        </section>
+
+        <section *ngIf="user.role !== 'CLIENTE'" class="animate-fadein">
+          <div class="flex items-center gap-2 mb-6 border-b border-surface-100 dark:border-surface-800 pb-2">
+            <i class="pi pi-briefcase text-primary"></i>
+            <h3 class="text-lg font-semibold text-surface-700 dark:text-surface-200">Datos Profesionales</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Comisión (%)</label>
+              <input pInputText type="number" [(ngModel)]="form.commissionPct" [disabled]="!isEditing" class="w-full h-12 rounded-xl" [style.color]="'white !important'"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Vehículo</label>
+              <input pInputText [(ngModel)]="form.vehicleType" [disabled]="!isEditing" class="w-full h-12 rounded-xl" [style.color]="'white !important'"/>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-semibold opacity-70" [style.color]="'white !important'">Placa / Patente</label>
+              <input pInputText [(ngModel)]="form.licensePlate" [disabled]="!isEditing" class="w-full h-12 rounded-xl" [style.color]="'white !important'" />
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-surface-50 dark:bg-surface-800/50 p-6 rounded-2xl border border-surface-100 dark:border-surface-800">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+            <div>
+              <p class="text-xs uppercase tracking-wider opacity-50 mb-1" [style.color]="'white !important'">Estado</p>
+              <span class="px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full text-sm font-bold" [style.color]="'white !important'">
+                {{ user.status || 'ACTIVO' }}
+              </span>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider opacity-50 mb-1" [style.color]="'white !important'">Puntos</p>
+              <span class="text-lg font-bold text-primary"[style.color]="'white !important'">{{ user.pointsBalance ?? 0 }}</span>
+            </div>
+            <div class="col-span-2 md:col-span-1">
+              <p class="text-xs uppercase tracking-wider opacity-50 mb-1"[style.color]="'white !important'">Miembro desde</p>
+              <span class="text-sm font-medium" [style.color]="'white !important'">{{ user.createdAt | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex flex-wrap gap-3 pt-6 border-t border-surface-100 dark:border-surface-800">
+          <p-button *ngIf="!isEditing" label="Editar Perfil" icon="pi pi-pencil" (onClick)="toggleEdit()" styleClass="p-button-primary rounded-xl px-6 h-12" />
+          <p-button *ngIf="isEditing" label="Guardar" icon="pi pi-save" (onClick)="saveChanges()" severity="success" styleClass="rounded-xl px-6 h-12" />
+          <p-button *ngIf="isEditing" label="Cancelar" icon="pi pi-times" (onClick)="toggleEdit()" severity="secondary" [text]="true" styleClass="rounded-xl h-12" />
+          
+          <span class="flex-grow"></span> <p-button label="Seguridad" icon="pi pi-lock" (onClick)="openChangePassword()" severity="warn" [outlined]="true" styleClass="rounded-xl h-12" />
+          <p-button label="Salir" icon="pi pi-sign-out" (onClick)="logout()" severity="danger" [text]="true" styleClass="rounded-xl h-12" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Si no hay usuario ni loading -->
+    <div *ngIf="!loading && !user" class="no-data">
+      <p>No se pudo cargar la información del perfil.</p>
+      <button pButton label="Volver al login" (click)="logout()"></button>
+    </div>
+  </div>
+
+  <!-- Dialog cambio de contraseña -->
+  <p-dialog header="Cambiar Contraseña" [(visible)]="showChangePasswordDialog" [modal]="true" [style]="{width: '450px'}">
+    <div class="dialog-content">
+      <div class="form-group">
+        <label>Contraseña actual</label>
+        <input pPassword [(ngModel)]="currentPassword" name="currentPassword" feedback="false" [style]="{'margin-left': '10px'}"/>
+        <p-button label="¿Olvidaste tu contraseña?" [text]="true" (onClick)="openForgotPassword()" styleClass="text-sm self-center" />
+      </div>
+
+      <div class="form-group">
+        <label>Nueva contraseña</label>
+        <input pPassword [(ngModel)]="newPassword" name="newPassword" feedback="false" [style]="{'margin': '10px'}"/>
+      </div>
+
+      <div class="form-group">
+        <label>Confirmar contraseña</label>
+        <input pPassword [(ngModel)]="confirmNewPassword" name="confirmNewPassword" feedback="false" [style]="{'margin': '10px'}"/>
+      </div>
+
+      <div class="dialog-actions">
+        <button pButton label="Cancelar" icon="pi pi-times" (click)="showChangePasswordDialog = false" class="p-button-secondary"></button>
+        <button pButton label="Cambiar" icon="pi pi-check" (click)="changePassword()" [loading]="loading" class="p-button-primary"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+
+  <p-dialog header="Recuperar Contraseña" [(visible)]="showForgotDialog" [modal]="true" [draggable]="false" [style]="{ width: '450px' }" (onHide)="resetRecoveryForm()">
+  <div class="py-2">
+    <div *ngIf="recoveryStep === 'email'" class="flex flex-col gap-4">
+      <h4 class="font-bold text-lg">Busquemos tu cuenta</h4>
+      <p class="text-surface-600 dark:text-surface-400">Ingresa tu correo para continuar.</p>
+      <input pInputText [(ngModel)]="forgotEmail" placeholder="correo@ejemplo.com" class="w-full h-12" />
+      <p-button label="Continuar" (onClick)="checkEmailAndContinue()" styleClass="w-full" />
+    </div>
+
+    <div *ngIf="recoveryStep === 'method'" class="flex flex-col gap-4">
+      <h4 class="font-bold text-lg">¿Cómo quieres recuperar tu acceso?</h4>
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:bg-primary/5 border-surface-200 dark:border-surface-700" 
+             [class.border-primary]="recoveryMethod === 'email'" (click)="recoveryMethod = 'email'">
+          <p-radioButton name="method" value="email" [(ngModel)]="recoveryMethod" />
+          <div class="flex flex-col"><span class="font-bold text-sm">Código por correo</span><span class="text-xs opacity-60">Enviaremos un PIN de 6 dígitos</span></div>
+        </div>
+        <div class="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:bg-primary/5 border-surface-200 dark:border-surface-700" 
+             [class.border-primary]="recoveryMethod === 'security'" (click)="recoveryMethod = 'security'">
+          <p-radioButton name="method" value="security" [(ngModel)]="recoveryMethod" />
+          <div class="flex flex-col"><span class="font-bold text-sm">Pregunta de seguridad</span><span class="text-xs opacity-60">Responde la pregunta de tu cuenta</span></div>
+        </div>
+      </div>
+      <p-button label="Continuar" (onClick)="recoveryMethod === 'email' ? sendResetCode() : recoveryStep = 'security'" styleClass="w-full mt-2" />
+    </div>
+
+    <div *ngIf="recoveryStep === 'code'" class="flex flex-col gap-3">
+      <h4 class="font-bold">Verifica tu correo</h4>
+      <p class="text-sm opacity-70">Código enviado a: <b>{{ forgotEmail }}</b></p>
+      <input pInputText placeholder="Código de 6 dígitos" [(ngModel)]="resetCode" class="w-full text-center text-2xl tracking-widest" />
+      <p-password placeholder="Nueva contraseña" [(ngModel)]="newPassword" [feedback]="false" styleClass="w-full" inputStyleClass="w-full" />
+      <p-password placeholder="Confirmar contraseña" [(ngModel)]="confirmPassword" [feedback]="false" styleClass="w-full" inputStyleClass="w-full" />
+      <p-button label="Restablecer Contraseña" (onClick)="resetPasswordByCode()" styleClass="w-full mt-2" />
+    </div>
+
+    <div *ngIf="recoveryStep === 'security'" class="flex flex-col gap-3">
+      <h4 class="font-bold">Pregunta de Seguridad</h4>
+      <div class="p-3 bg-surface-100 dark:bg-surface-800 rounded-lg italic text-center">"{{ securityQuestion }}"</div>
+      <input pInputText placeholder="Tu respuesta" [(ngModel)]="securityAnswer" class="w-full" />
+      <p-password placeholder="Nueva contraseña" [(ngModel)]="newPassword" [feedback]="false" styleClass="w-full" inputStyleClass="w-full" />
+      <p-password placeholder="Confirmar contraseña" [(ngModel)]="confirmPassword" [feedback]="false" styleClass="w-full" inputStyleClass="w-full" />
+      <p-button label="Restablecer Contraseña" (onClick)="resetPasswordByAnswer()" styleClass="w-full mt-2" />
+    </div>
+
+    <div *ngIf="recoveryStep === 'success'" class="text-center py-6 flex flex-col items-center gap-4">
+      <i class="pi pi-check-circle text-6xl text-green-500"></i>
+      <div>
+        <h3 class="text-xl font-bold">¡Todo listo!</h3>
+        <p class="opacity-70 text-sm">Tu contraseña ha sido actualizada.</p>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+
+  <p-toast></p-toast>
+</div>

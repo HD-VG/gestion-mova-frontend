@@ -1,0 +1,44 @@
+.topbar {
+  // El fondo y bordes ya se manejan con clases de Tailwind en el HTML
+  min-height: 70px;
+}
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--p-surface-600);
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--p-surface-100);
+    color: var(--p-primary-color);
+  }
+
+  i { font-size: 1.1rem; }
+}
+
+.dark .menu__item {
+  color: var(--p-surface-400);
+  &:hover {
+    background: var(--p-surface-800);
+    color: var(--p-primary-color);
+  }
+}
+
+// Estilo para el link activo
+.active-link {
+  background: var(--p-primary-color) !important;
+  color: var(--p-primary-contrast-color) !important;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    border-bottom: 1px solid var(--p-surface-200);
+    z-index: 100;
+  }
+}
