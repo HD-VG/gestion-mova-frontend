@@ -1,4 +1,3 @@
-// 1. Variables locales para fácil mantenimiento
 $animation-speed: 0.5s;
 $card-radius: 24px;
 
@@ -7,7 +6,6 @@ $card-radius: 24px;
   margin: 2rem auto;
   padding: 0 1rem;
   
-  // Animación de entrada suave
   animation: fadeIn $animation-speed ease-out;
 }
 
@@ -20,13 +18,10 @@ $card-radius: 24px;
   }
 }
 
-// 2. Personalización de Componentes de PrimeNG
-// Usamos :host ::ng-deep para llegar a los estilos internos de PrimeNG
 :host ::ng-deep {
   
-  // Estilo para Inputs (Normal y Deshabilitado)
   .p-inputtext {
-    border-radius: 12px; // Redondeado moderno
+    border-radius: 12px; 
     transition: all 0.2s;
 
     &:enabled:focus {
@@ -34,7 +29,6 @@ $card-radius: 24px;
     }
 
     &:disabled {
-      // Esto asegura que en modo oscuro y claro se vea bien
       background-color: var(--surface-100) !important;
       color: var(--text-color-secondary) !important;
       border-color: var(--surface-200) !important;
@@ -43,7 +37,6 @@ $card-radius: 24px;
     }
   }
 
-  // Estilo para los Botones de PrimeNG
   .p-button {
     border-radius: 12px;
     font-weight: 600;
@@ -56,7 +49,6 @@ $card-radius: 24px;
   }
 }
 
-// 3. Helpers de Layout (Para que .actions funcione)
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -64,7 +56,6 @@ $card-radius: 24px;
   align-items: center;
 }
 
-// 4. Animaciones
 @keyframes fadeIn {
   from { 
     opacity: 0; 
@@ -76,7 +67,6 @@ $card-radius: 24px;
   }
 }
 
-// 5. Ajustes Responsivos (Mobile First)
 @media (max-width: 768px) {
   .profile-container {
     margin: 1rem auto;
@@ -84,13 +74,11 @@ $card-radius: 24px;
 
   .actions {
     flex-direction: column;
-    
-    // Hacemos que los botones ocupen todo el ancho en móvil
+
     p-button, .p-button {
       width: 100%;
     }
-    
-    // Quitamos el espaciador en móvil
+
     .flex-grow {
       display: none;
     }

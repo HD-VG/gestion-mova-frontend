@@ -23,10 +23,10 @@ export class AuthService {
     return this.http.post(`${this.api}/users/forgot-password`, { email });
   }
 
-  // Obtener datos del usuario (para mostrar pregunta de seguridad)
+  // Obtener datos del usuario
   getUserByEmailOrId(value: string): Observable<any> {
   return this.http.get(`${this.api}/users/${value}`).pipe(
-    map((response: any) => response.data)   // ← extraemos solo el data
+    map((response: any) => response.data)
   );
 }
   // RESET PASSWORD (acepta code O answer)
@@ -39,7 +39,7 @@ export class AuthService {
     return this.http.post(`${this.api}/users/reset-password`, data);
   }
 
-   // ── Registro nuevo ────────────────────────────────────────
+   // Registro nuevo
    register(data: {
     role: string;
     fullName: string;
@@ -47,9 +47,8 @@ export class AuthService {
     password: string;
   }): Observable<any> {
     return this.http.post(`${this.api}/users/register`, data).pipe(
-      map((response: any) => response.data || response), // retornamos la data o la respuesta completa
+      map((response: any) => response.data || response), 
       catchError((error) => {
-        // Propagamos el error para que el componente lo maneje
         return throwError(() => error);
       })
     );

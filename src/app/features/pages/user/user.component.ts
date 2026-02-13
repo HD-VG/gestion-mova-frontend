@@ -34,12 +34,12 @@ export class UserComponent implements OnInit {
   private router = inject(Router);
   private messageService = inject(MessageService);
   private platformId = inject(PLATFORM_ID);
-  private cdr = inject(ChangeDetectorRef); // ← nuevo: fuerza detección de cambios
+  private cdr = inject(ChangeDetectorRef);
   private authService = inject(AuthService);
 
   user: User | null = null;
   isEditing = false;
-  loading = true; // empieza en true
+  loading = true;
 
    // --- Recuperación ---
    isLogin = true;
@@ -97,7 +97,7 @@ export class UserComponent implements OnInit {
 
     this.userService.getUserById(userId).subscribe({
       next: (response) => {
-        const userData = response; // si tu backend devuelve directo el objeto
+        const userData = response;
 
         if (userData && userData.id) {
           this.user = userData;
@@ -108,7 +108,7 @@ export class UserComponent implements OnInit {
         }
 
         this.loading = false;
-        this.cdr.detectChanges(); // ← fuerza renderizado inmediato
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al cargar usuario:', err);
@@ -143,7 +143,6 @@ export class UserComponent implements OnInit {
 
   this.loading = true;
 
-  // ← Aquí está la clave: enviamos SOLO los campos permitidos
   const updateData = this.getUpdateDto();
 
   this.userService.updateUser(this.user.id, updateData).subscribe({
@@ -213,8 +212,6 @@ export class UserComponent implements OnInit {
     commissionPct: this.form.commissionPct,
     vehicleType: this.form.vehicleType,
     licensePlate: this.form.licensePlate,
-    // NO incluyas status si no lo muestras editable
-    // status: this.form.status,  ← solo si lo tienes en el form y quieres permitir cambiarlo
   };
 }
   logout() {
@@ -224,7 +221,6 @@ export class UserComponent implements OnInit {
     this.showToast('info', 'Sesión cerrada');
   }
 
-    // --- Lógica de Recuperación de Contraseña ---
   openForgotPassword() {
     this.resetRecoveryForm();
     this.showForgotDialog = true;

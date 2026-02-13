@@ -44,7 +44,6 @@ export class UserService {
   private http = inject(HttpClient);
   private api = environment.apiUrl;
 
-  // Obtener headers con token
   private getHeaders(): HttpHeaders {
   const token = localStorage.getItem('auth_token');
   return new HttpHeaders({
@@ -52,19 +51,16 @@ export class UserService {
   });
 }
 
-  // Obtener usuario por ID (del token o guardado)
   getUserById(id: string): Observable<User> {
     return this.http.get<any>(`${this.api}/users/${id}`, { headers: this.getHeaders() })
       .pipe(map(res => res.data || res)); // extrae data si existe
   }
 
-  // Actualizar usuario
   updateUser(id: string, dto: UpdateUserDto): Observable<User> {
     return this.http.put<any>(`${this.api}/users/${id}`, dto, { headers: this.getHeaders() })
       .pipe(map(res => res.data || res));
   }
 
-  // Cambiar contraseña
   changePassword(id: string, dto: ChangePasswordDto): Observable<any> {
     return this.http.put<any>(`${this.api}/users/${id}/change-password`, dto, { headers: this.getHeaders() });
   }

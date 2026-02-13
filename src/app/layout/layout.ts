@@ -13,7 +13,6 @@ import { ToastModule } from 'primeng/toast';
   styleUrl: './layout.scss',
   imports: [CommonModule, AvatarModule, RippleModule, ButtonModule, ToastModule],
 })
-// ... (tus otros imports)
 
 export class LayoutComponent {
   menuOpen = false;
@@ -21,7 +20,6 @@ export class LayoutComponent {
   private router = inject(Router);
   private messageService = inject(MessageService);
 
-  // Detectar si es móvil para el menú
   isMobile() {
     return window.innerWidth <= 768;
   }
@@ -38,7 +36,6 @@ export class LayoutComponent {
     }
   }
 
-  // Navegación genérica que cierra el menú móvil
   navigate(path: string) {
     this.router.navigate([path]);
     this.menuOpen = false;

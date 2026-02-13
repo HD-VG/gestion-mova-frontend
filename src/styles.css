@@ -2,15 +2,13 @@
 @import "primeicons/primeicons.css";
 @plugin "tailwindcss-primeui";
 
-/* No fuerces capas complejas si te dan problemas, v4 es inteligente */
 @layer base {
   html {
     transition: background-color 0.3s ease;
   }
   
-  /* Esto asegura que el fondo cambie cuando esté la clase */
   .my-app-dark {
-    background-color: #0f172a; /* Un color oscuro de fondo por si acaso */
+    background-color: #0f172a;
     color: white;
   }
 }

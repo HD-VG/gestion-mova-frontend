@@ -40,7 +40,7 @@ export class AuthComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
 
-  // --- Login / Register ---
+  // Login / Register 
   isLogin = true;
   loading = false;
   registerLoading = false;
@@ -49,7 +49,7 @@ export class AuthComponent implements OnInit {
   password = '';
   fullName = '';
 
-  // --- Recuperación ---
+  // Recuperación
   showForgotDialog = false;
   recoveryStep: 'email' | 'method' | 'code' | 'security' | 'success' = 'email';
   recoveryMethod: 'email' | 'security' = 'email';
@@ -74,7 +74,7 @@ export class AuthComponent implements OnInit {
     this.resetRecoveryForm();
   }
 
-  // --- Lógica de Login ---
+  // Lógica de Login
   login(): void {
     if (!this.email || !this.password) {
       this.showToast('warn', 'Completa correo y contraseña');
@@ -105,7 +105,7 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  // --- Lógica de Registro ---
+  // Lógica de Registro
   register() {
     if (!this.fullName || !this.email || !this.password) {
       this.showToast('warn', 'Todos los campos son obligatorios');
@@ -129,7 +129,7 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  // --- Lógica de Recuperación de Contraseña ---
+  //Lógica de Recuperación de Contraseña 
   openForgotPassword() {
     this.resetRecoveryForm();
     this.showForgotDialog = true;

@@ -64,7 +64,6 @@
   transform: translateX(480px);
 }
 
-/* Animación de entrada para los forms */
 .animate-fadein {
   animation: fadeIn 0.4s ease-in-out;
 }
@@ -74,27 +73,24 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* 📱 RESPONSIVE */
-/* ... (mantenemos los estilos de desktop de antes) ... */
-
 @media (max-width: 900px) {
   .auth-page {
-    align-items: flex-start; // Para que en pantallas muy pequeñas se pueda hacer scroll
+    align-items: flex-start; 
     padding: 20px 0;
   }
 
   .auth-container {
     width: 95%;
-    height: auto; // Deja que crezca según el contenido
+    height: auto; 
     display: flex;
     flex-direction: column;
     margin: 0 auto;
   }
 
   .auth-back {
-    position: relative; // Pasa de absoluto a relativo para que ocupe espacio arriba
+    position: relative; 
     width: 100%;
-    height: 220px; // Altura fija para el mensaje decorativo
+    height: 220px; 
     border-radius: 24px 24px 0 0;
     z-index: 1;
   }
@@ -103,7 +99,7 @@
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
-    transform: scale(0.8) !important; // Efecto de alejamiento cuando no está activo
+    transform: scale(0.8) !important;
     transition: all 0.5s ease;
 
     &.active {
@@ -112,7 +108,6 @@
     }
   }
 
-  // Posicionamos las animaciones para que no se muevan hacia los lados en móvil
   .back-login { transform: translateY(-20px); }
   .back-register { transform: translateY(-20px); }
 
@@ -120,12 +115,12 @@
     position: relative;
     width: 100%;
     height: auto;
-    top: -30px; // Hace que el form "pise" un poquito el fondo azul para que se vea moderno
+    top: -30px; 
     left: 0 !important;
-    transform: none !important; // Desactivamos el movimiento lateral
+    transform: none !important;
     border-radius: 24px;
     padding: 40px 24px;
     z-index: 2;
-    box-shadow: 0 -10px 20px rgba(0,0,0,0.05); // Sombra hacia arriba
+    box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
   }
 }
